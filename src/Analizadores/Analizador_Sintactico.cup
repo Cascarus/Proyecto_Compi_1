@@ -1,0 +1,323 @@
+package Analizadores;
+import java_cup.runtime.*;
+import java.util.*;
+import java.util.ArrayList; 
+import Lista.*;
+import Objetos.*;
+
+parser code
+{:
+
+    //public static LinkedList<Errores> ListES = new LinkedList<Errores>();
+    
+    //ArrayList<Puntos> AuxPuntos = new ArrayList<Puntos>();
+    //Lineas auxlin = new Lineas();
+    //XYline auxXYl = new XYline();
+    //Barras auxbarra = new Barras();
+    //Galeria auxgaleria = new Galeria();
+    
+    //Metodo de recuperacion de errores
+    char tipo;
+    
+    public void syntax_error(Symbol s){
+        String lexema = s.value.toString();
+        
+        int fila = s.right;
+        int columna = s.left;
+
+        System.out.println("-------------> Recuperandose de Error Sintactico <-------------");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: " +fila);
+        System.out.println("\t\tColumna: "+columna);
+        
+        Errores datos = new Errores(lexema, fila, columna, "Error Sintactico", "Caracter no esperado");
+        Listas.Errores_Sin.add(datos);
+    }
+	
+    //Metodo de no recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+
+        System.out.println("-------------> Error sintactico no recuperado, entrando en modo panico <-------------");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: " +fila);
+        
+        Errores datos = new Errores(lexema, fila, columna, "Error Sintactico", "Caracter no esperado");
+        Listas.Errores_Sin.add(datos);
+    }
+
+    public String tipo(char a){
+        switch(a){
+            case 'i':
+                return "int";
+
+                case 'd':
+                    return "double";
+
+                case 'b':
+                    return "boolean";
+
+                case 's':
+                    return "string";
+                    
+                default:
+                    return "";
+        }
+    }
+        
+:}
+
+action code
+{:
+:}
+
+/*-----------------------> Palabras Reservadas <-----------------------*/
+/*-------------> Terminales <-------------*/
+terminal String mas,menos,por,divicion,igual,parentA,parentC,llaveA,llaveC,corecheA,corecheC,interrA,interrC,dosPts,puntComa,coma,mayorq,menorq,TextoN, punto, exclama, AND, OR, mayorigual, menorigual, igualigual, diferente;
+terminal String tk_Compi_A,tk_Cabecera_A,tk_Titulo_A,tk_Cuerpo_A,tk_Espacio_A,tk_Parrafo_A,tk_TextoA_A,tk_TextoB_A,tk_Imagen_A,tk_Boton_A,tk_Tabla_A,tk_Fila_A,tk_ColumnaC_A,tk_Columna_A,tk_ColumnaC_A2,tk_Columna_A2,tk_Compi_C,tk_Cabecera_C,tk_Titulo_C,tk_Cuerpo_C,tk_Espacio_C,tk_Parrafo_C,tk_TextoA_C,tk_TextoB_C,tk_Imagen_C,
+                tk_Boton_C,tk_Tabla_C,tk_Fila_C,tk_ColumnaC_C,tk_Columna_C,tk_ColumnaC_C2,tk_Columna_C2,tk_Salto,tk_Izquierda,tk_Derecha,tk_Centrado,tk_Justificado,tk_Path,tk_Alto,tk_Ancho,tk_Borde,tk_If,tk_Else,tk_Repetir,tk_Insertar,tk_CrearImagen,tk_GetPath,tk_GetAncho,tk_GetAlto,tk_SetPath,tk_SetAncho,tk_SetAlto,tk_CrearParrafo,
+                tk_GetContenido,tk_GetAlineacion,tk_SetContenido,tk_SetAlineacion,tk_CrearTextoA,tk_CrearTextoB,tk_CrearTabla,tk_SetBorde,tk_CrearBoton,tk_GetTexto,tk_SetTexto,tk_ClickBoton,tk_Fondo,tk_Alineacion,tk_ID,tk_Texto, tk_True, tk_False, tk_HS_A, tk_HS_C,tk_Echo, tk_Rojo, tk_Azul,tk_Verde,tk_Gris,
+                tk_Negro,tk_Amarillo,tk_Rosado;
+terminal String numero,decimal,id,cadena, Eti_Coment;
+
+/*-------------> No Terminales <-------------*/
+non terminal String COLOR,VAL_STRING,OP,SALTO,TEXTOA,TEXTOB,SCRIPT,ALINEACION, VAL_BOOL, BTN, CARACTBTN, FUNCIONES, AUXFUN, VAR_HS, F_REP, F_IF, F_NAT, VAL, COMENTARIO,
+                    CADEN, F_ELSE, CONDICION, E, CONT2, A_FUNCIONES,FOR_COND, DECLA_OBJETO, TIPO_OBJETO, CREARPARRAF, PARAM_PARRAF, CREARTEXTOA, CREARTEXTOB, CREARIMG, PARAM_IMG, CREARTAB, PARAM_TAB, CREARBTN, PARAM_BTN, LIST_SCRIPT;
+
+non terminal CONTENIDO,AUXC;
+
+//non terminal double OP;
+
+non terminal ArrayList<String> L_ECHO;
+non terminal ArrayList<Object> CONT, CONTC,CONTENIDOT,CONTF;
+non terminal Html S;
+non terminal Cabecera CABECERA;
+non terminal Cuerpo CUERPO;
+non terminal Titulo TITULO;
+non terminal Parrafo PARRAFO;
+non terminal Espacio ESPACIO;
+non terminal ArrayList<Detalle_IMG> IMG;
+non terminal Detalle_IMG CARACTIMG;
+non terminal Imagen IMAGEN;
+non terminal Boton BOTON;
+non terminal Object COLUMNA;
+non terminal Object FILA;
+non terminal Tabla TABLA;
+non terminal Echo F_ECHO;
+/*-------------> Predecencia <-------------*/
+precedence left mas,menos;
+precedence left por,divicion;
+
+precedence left AND, OR;
+precedence left igualigual, diferente;
+precedence left menorq, menorigual, mayorq, mayorigual;
+
+precedence left parentA, parentC;
+
+/*-------------> Gramatica <-------------*/
+/**/
+start with S;
+
+S ::= tk_Compi_A CABECERA:a CUERPO:b tk_Compi_C {: Html inicio = new Html(a,b); Informacion.documento = inicio.html_code(); :}
+            | tk_Compi_A CABECERA:a CUERPO:b Eti_Coment tk_Compi_C {: Html inicio = new Html(a,b); Informacion.documento = inicio.html_code(); :}
+            | tk_Compi_A CABECERA:a Eti_Coment CUERPO:b tk_Compi_C {: Html inicio = new Html(a,b); Informacion.documento = inicio.html_code(); :}
+            | tk_Compi_A Eti_Coment CABECERA:a CUERPO:b tk_Compi_C {: Html inicio = new Html(a,b); Informacion.documento = inicio.html_code(); :}
+            | Eti_Coment tk_Compi_A CABECERA:a CUERPO:b tk_Compi_C {: Html inicio = new Html(a,b); Informacion.documento = inicio.html_code(); :} ; 
+
+CABECERA ::= tk_Cabecera_A TITULO:a tk_Cabecera_C {: RESULT = new Cabecera(a); :}
+            | tk_Cabecera_A tk_Cabecera_C {: RESULT = new Cabecera(); :}
+            | error tk_Cuerpo_A
+            | error tk_Compi_C;
+
+TITULO ::= tk_Titulo_A TextoN:a tk_Titulo_C {:RESULT = new Titulo(a); :}
+            | tk_Titulo_A mayorq menorq tk_Titulo_C {: RESULT = new Titulo(); :};
+
+CUERPO ::= tk_Cuerpo_A tk_Fondo igual COLOR:a mayorq tk_Cuerpo_C {:RESULT = new Cuerpo(a); :}
+            | tk_Cuerpo_A tk_Fondo igual COLOR:a mayorq CONT:b tk_Cuerpo_C {: RESULT = new Cuerpo(a,b); :}
+            | tk_Cuerpo_A mayorq CONT:a  tk_Cuerpo_C {: RESULT = new Cuerpo("",a); :}
+            | tk_Cuerpo_A mayorq tk_Cuerpo_C {: RESULT = new Cuerpo(); :};
+
+COLOR ::= VAL_STRING:a {: RESULT = a; :}
+            | tk_Rojo:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Azul:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Verde:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Gris:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Negro:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Amarillo:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Rosado:a {: RESULT = a.replace("\"","").toLowerCase(); :};
+
+CONT ::= CONT:a CONTENIDO:b {: RESULT = a; RESULT.add(b); :}
+            | CONTENIDO:a {: RESULT = new ArrayList<>(); RESULT.add(a); :};
+
+CONTENIDO ::= PARRAFO:a {: RESULT = a; :}
+            | SALTO:a {: RESULT = a; :}
+            | ESPACIO:a {: RESULT = a; :}
+            | TEXTOA:a {: RESULT = a; :}
+            | TEXTOB:a {: RESULT = a; :}
+            | IMAGEN:a {: RESULT = a; :}
+            | BOTON:a {: RESULT = a; :}            
+            | TABLA:a {: RESULT = a; System.out.println("Llego a la tabla"); :}
+            | COMENTARIO:a {: RESULT = a; :}
+            | SCRIPT:a {::};
+
+COMENTARIO ::= Eti_Coment:a {: String b = a.replace("<!","<!-"); RESULT = b.replace("!>","->") + "\n "; :};
+
+LIST_SCRIPT ::= LIST_SCRIPT SCRIPT
+                |SCRIPT;
+
+PARRAFO ::= tk_Parrafo_A TextoN:a tk_Parrafo_C {: RESULT = new Parrafo(a); :}
+            | tk_Parrafo_A tk_Alineacion igual ALINEACION:a TextoN:b tk_Parrafo_C {: RESULT = new Parrafo(a,b); :};
+
+ALINEACION ::= tk_Izquierda:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Derecha:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Centrado:a {: RESULT = a.replace("\"","").toLowerCase(); :}
+            | tk_Justificado:a {: RESULT = a.replace("\"","").toLowerCase(); :};
+
+SALTO ::= tk_Salto:a {: RESULT = "<br/>\n"; :};
+
+TEXTOA ::= tk_TextoA_A TextoN:a tk_TextoA_C {: RESULT = "<h1>"+ a + "</h1>\n"; :};
+
+TEXTOB ::= tk_TextoB_A TextoN:a tk_TextoB_C{: RESULT = "<h3>"+ a + "</h3>\n"; :};
+
+IMAGEN ::= tk_Imagen_A IMG:a mayorq tk_Imagen_C {: RESULT = new Imagen(a); :};
+
+IMG ::= IMG:a CARACTIMG:b {: RESULT = a; RESULT.add(b); :} 
+            | CARACTIMG:a {: RESULT = new ArrayList<>(); RESULT.add(a); :};
+
+CARACTIMG ::= tk_Alto igual OP:a {: RESULT = new Detalle_IMG("alto",Double.parseDouble(a)); :}
+            | tk_Ancho igual OP:a {: RESULT = new Detalle_IMG("ancho",Double.parseDouble(a)); :}
+            | tk_Path igual cadena:a {: RESULT = new Detalle_IMG("url",a); :};
+
+BOTON ::= tk_Boton_A tk_ID igual VAL_STRING:a tk_Texto igual VAL_STRING:b mayorq tk_Boton_C {: RESULT = new Boton(a,b); :}
+            | tk_Boton_A tk_Texto igual VAL_STRING:b tk_ID igual VAL_STRING:a mayorq tk_Boton_C {: RESULT = new Boton(a,b); :};
+
+TABLA ::= tk_Tabla_A mayorq CONTENIDOT:a tk_Tabla_C {: RESULT = new Tabla(a); :}
+            | tk_Tabla_A tk_Borde igual VAL_BOOL:a mayorq CONTENIDOT:b tk_Tabla_C {: RESULT = new Tabla(a,b); :}; 
+
+CONTENIDOT ::= CONTENIDOT:a FILA:b {: RESULT = a; RESULT.add(b); :}
+            | FILA:a {: RESULT = new ArrayList<>(); RESULT.add(a); :}
+            | LIST_SCRIPT;
+
+FILA ::= tk_Fila_A CONTF:a tk_Fila_C {:RESULT = new Fila(a); :}
+            | COMENTARIO:a {: RESULT = a; :};
+
+CONTF ::= CONTF:a COLUMNA:b {: RESULT = a; RESULT.add(b);  :}
+            |COLUMNA:a {: RESULT = new ArrayList<>(); RESULT.add(a);:}
+            | LIST_SCRIPT;
+
+COLUMNA ::= tk_ColumnaC_A CONTC:a tk_ColumnaC_C {: RESULT = new Columna(1,a); :}
+            | tk_Columna_A CONTC:a tk_Columna_C {: RESULT = new Columna(2,a); :}
+            | COMENTARIO:a {: RESULT = a; :}
+            | tk_ColumnaC_A2 CONTC:a tk_ColumnaC_C2 {: RESULT = new Columna(1,a); :}
+            | tk_Columna_A2 CONTC:a tk_Columna_C2 {: RESULT = new Columna(2,a); :};
+            
+
+CONTC ::= CONTC:a AUXC:b {: RESULT = a; RESULT.add(b); :}
+            | AUXC:a {: RESULT = new ArrayList<>(); RESULT.add(a); :};
+
+AUXC ::=  SALTO:a {: RESULT = a; :}
+            | PARRAFO:a {: RESULT = a; :}
+            | IMAGEN:a {: RESULT = a; :}
+            | BOTON:a {: RESULT = a; :}
+            | TextoN:a {: RESULT = a; :}
+            | SCRIPT:a {::};
+
+ESPACIO ::= tk_Espacio_A CONT:a tk_Espacio_C {: RESULT = new Espacio(a); :}
+            | tk_Espacio_A tk_Espacio_C {: RESULT = new Espacio(null); :};
+
+SCRIPT ::= tk_HS_A FUNCIONES tk_HS_C;
+
+FUNCIONES ::= FUNCIONES AUXFUN
+            | AUXFUN;
+
+AUXFUN ::= VAR_HS
+            | F_ECHO
+            | F_IF
+            | F_REP
+            | F_NAT;
+
+VAR_HS ::= id:a igual VAL:b puntComa {: Variables vari = new Variables(tipo(tipo),a,b);
+                                        Listas.variablesG.add(vari); :};
+
+F_ECHO ::= tk_Echo L_ECHO:a puntComa {: Echo contenido = new Echo(a);
+                                    Listas.contEcho.add(contenido); :};
+
+L_ECHO ::=  L_ECHO:a punto CADEN:b {: RESULT = a; RESULT.add(b); :}
+            | CADEN:a {: RESULT = new ArrayList<>(); RESULT.add(a); :};
+
+CADEN ::= VAL_STRING :a {: RESULT = a.replace("\"",""); :};
+
+F_IF ::= tk_If parentA CONDICION parentC llaveA CONT2  F_ELSE;
+
+F_ELSE ::= llaveC tk_Else llaveA CONT2 llaveC
+            | llaveC;
+
+CONDICION ::= E
+            | parentA CONDICION parentC
+            | CONDICION AND CONDICION 
+            | CONDICION OR CONDICION
+            | CONDICION diferente CONDICION
+            | CONDICION igualigual CONDICION
+            | CONDICION menorigual CONDICION
+            | CONDICION mayorigual CONDICION
+            | CONDICION menorq CONDICION
+            | CONDICION mayorq CONDICION;
+
+E ::= VAL
+    | exclama VAL_BOOL;
+
+CONT2 ::= CONT2 A_FUNCIONES
+            | A_FUNCIONES;
+
+A_FUNCIONES ::= F_ECHO
+            | F_IF
+            | F_REP
+            | F_NAT;
+F_REP ::= tk_Repetir parentA FOR_COND parentC llaveA CONT2 llaveC;
+
+FOR_COND ::= id:a {: RESULT = a; :}
+            | OP:a {: RESULT = a; :};
+
+VAL ::= VAL_STRING:a {: RESULT = a; :}
+            | OP:a {: RESULT = a; :}  
+            | VAL_BOOL:a {: RESULT = a; :};
+
+VAL_STRING ::= cadena:a {: tipo = 's'; RESULT = a; :}
+    | id:a {: String contenido = "";
+              for(int b=0; b<Listas.variablesG.size(); b++){
+                  if(Listas.variablesG.get(b).getNombreVariable().equals(a)){
+                      contenido = Listas.variablesG.get(b).getValor();
+                      RESULT = contenido;
+                      break;
+                  }
+              }
+              if(contenido.equals("")){
+                System.out.println("Error Semantico ");
+            }
+            :} ;
+
+VAL_BOOL ::= tk_True:a {: tipo = 'b'; RESULT = a.toLowerCase(); :}
+            | tk_False:a {: tipo = 'b'; RESULT = a.toLowerCase();  :};
+
+OP ::= OP:a mas OP:b {: double val1 = Double.parseDouble(a);
+                        double val2 = Double.parseDouble(b);
+                        double sum = val1 + val2;
+                        RESULT =  Double.toString(sum); :}
+    | OP:a menos OP:b {:double val1 =  Double.parseDouble(a);
+                        double val2 =  Double.parseDouble(b);
+                        double res = val1 - val2;
+                        RESULT =  Double.toString(res); :}  
+    | OP:a por OP:b {:  double val1 =  Double.parseDouble(a);
+                        double val2 =  Double.parseDouble(b);
+                        double multi = val1 * val2;
+                        RESULT = Double.toString(multi); :}
+    | OP:a divicion OP:b {: double val1 =  Double.parseDouble(a);
+                        double val2 = Double.parseDouble(b);
+                        double divi = val1 / val2;
+                        RESULT = Double.toString(divi); :}
+    | parentA OP:a parentC {: RESULT = a; :}
+    | numero:a {: tipo = 'i'; RESULT = a; :} 
+    | decimal:a {: tipo = 'd'; RESULT = a; :} ;

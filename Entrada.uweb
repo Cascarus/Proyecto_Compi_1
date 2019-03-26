@@ -1,0 +1,92 @@
+<compi>
+<cabecera>
+	<titulo>Titulo 1</titulo>
+</cabecera>
+
+<cuerpo fondo ="rosado">
+
+	<parrafo> Parrafo normal </parrafo>
+	<parrafo alineacion = "izquierda"> Parrafo a la izquierda </parrafo>
+	<parrafo alineacion = "derecha"> Parrafo a la derecha </parrafo>
+	<parrafo alineacion = "centrado"> Parrafo centrado </parrafo>
+	<parrafo alineacion = "justificado"> Parrafo justificado </parrafo>
+
+	<textoA> Aqui va un texto tipo A </textoA>
+	<textoB> Aqui va un texto tipo B </textoB>
+	</salto>
+
+<espacio>
+	<textoA> Estoy en un div </textoA>
+	<textoB> aqui va un texto </textoB>
+
+	<parrafo alineacion = "centrado"> Pongo algo de contenido en este div </parrafo>
+
+
+</espacio>
+
+<espacio>
+	<textoB> IMAGEN NORMAL </textoB>
+	<imagen path = "D:\Cascarus\Pictures\Uchiha Sasuke.png"></imagen>
+	</salto>
+	<textoB> IMAGEN CON TAMAÑO DISTINTO </textoB>
+	<imagen path = "D:\Cascarus\Pictures\Uchiha Sasuke.png" alto=92.3+3.1 ancho=50 ></imagen>
+	</salto>
+	<imagen alto=23/34+3 path = "ruta2" ancho=9*3-4></imagen>
+	<imagen ancho=3.43-2+3 alto=30 path = "ruta3"></imagen>
+</espacio>
+	
+	<boton id=boton1 texto="Primer boton"></boton>
+	</salto>
+	<boton id=boton2 texto="Primer boton"></boton>
+</salto>
+<espacio>
+	<tabla borde= true>
+		<fila>
+			<columnac >Columna1</columnac>
+			<columnac >Columna2</columnac>
+			<columnac >Columna3</columnac>
+			<columnac >Columna4</columnac>
+		</fila>
+		<fila>
+			<columna >Contenido1</columna>
+			<columna >Contenido2</columna>
+			<columna >Contenido3</columna>
+			<columna >Contenido4</columna>
+		</fila>
+		<fila>
+			<columna >Contenido1</columna>
+			<columna >Contenido2</columna>
+			<columna >Contenido3</columna>
+			<columna><boton id=aceptar texto="aceptar"></boton></columna>
+		</fila>
+	
+	</tabla>
+
+</espacio>
+
+<?hs
+	$var1=34+34+34;
+	echo $var1;
+	echo "var1 vale " . $var1;
+	$var2 = true;   $var3 = "hola";
+	echo $var2 ." ".$var3;
+
+	if(){
+	}
+	
+	if(){
+	}else{
+	}	
+?>
+
+
+</cuerpo>
+</compi>
+
+
+
+
+
+
+
+

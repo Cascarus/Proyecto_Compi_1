@@ -1,0 +1,318 @@
+<!!!!! Este es un comentario
+    en nuestro programa 
+!!!!!!>
+<COMPI>
+		<CABECERA>
+			<TITULO> Página Principal
+			</TITULO> 
+		</CABECERA>
+
+		<cuerpo fondo = "#f0f0f0"> 
+			<espacio>
+				<! ------ banner en nuestra pagina----------- !>
+
+				<textoa> BajarPelículas.com </textoa>
+				<espacio>
+				<boton id="enc1" texto="Inicio"></boton>
+				<boton id="enc1" texto="Peliculas"></boton>
+				<boton id="enc1" texto="Series"></boton>
+				<boton id="enc1" texto="Anime"></boton>
+				<boton id="enc1" texto="Ayuda"></boton>
+				</espacio>
+
+
+				<parrafo alineacion = "centrado">
+					Encuentra tus películas favoritas al alcance de un click!
+				</parrafo>
+				<imagen  ancho=1150 alto=72   path="C://imagenes//b1.png" ></imagen>
+				          	
+				
+				<! ------ area de estrenos ----------- !>
+				<textob> Películas de Estreno </textob>
+				<parrafo>
+					Las últimas películas estrenadas en cines.
+				</parrafo>
+				<espacio>
+
+					<tabla borde=false>
+				    	<fila>
+				        	<columnac>Spiderman</columnac>
+				        	<columnac>Aquaman</columnac>
+				        	<columnac>Green Book</columnac>
+				        	<columnac>La Favorita</columnac>
+				        	<columnac>Dragon Ball</columnac>
+				        	<columnac>Fam. al inst.</columnac>
+				        	<columnac>Cadaver</columnac>
+				        	<columnac>Máquinas</columnac>
+				    	</fila>
+				    <!!!!!!!! Este comentario no lo debo quitar el día de mi calificación
+					!>
+				    	<fila> 
+				          	<columna><imagen alto=200 ancho=148   path="C://imagenes//e1.jpg" ></imagen>
+				          	</columna>
+				          	<columna><imagen alto=200 ancho=148     path="C://imagenes//e2.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen alto=200 ancho=148     path="C://imagenes//e3.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen alto=200 ancho=148     path="C://imagenes//e4.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen     alto=200 ancho=148   path="C://imagenes//e5.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen alto=200 ancho=148  path="C://imagenes//e6.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen   alto=200 ancho=148  path="C://imagenes//e7.jpg"></imagen>
+				          	</columna>
+				          	<columna><imagen   alto=200 ancho=148  path="C://imagenes//e8.jpg"></imagen>
+				          	</columna>
+				    	</fila>
+				    	<fila> 
+				    		<columna>
+				    		<boton id="btn1" texto="Descargar"></boton>
+				    		</columna>
+				            <columna>
+				    		<boton id="btn2" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn3" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn4" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn5" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn6" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn7" texto="Descargar"></boton>
+				    		</columna>
+				    		<columna>
+				    		<boton id="btn8" texto="Descargar"></boton>
+				    		</columna>
+				      </fila>    
+				  </tabla> 
+				  </salto>
+				  </salto>
+	</espacio>
+<?hs
+$varRep = 6*2;
+#img1 = CrearImagen("C://imagenes//d2.png", 2*10, 50+100);
+#img1.setPath("C://imagenes//d3.png");
+$varImg1 = #img1.getAncho();
+#img1.setAlto(1*100);
+#img1.setAncho(50+50);
+
+repetir ($varRep) {
+	echo "Insertando imagen .... ";
+	#img1.insertar();
+}
+
+#title1 = CrearTextoA("Mad Max: Fury Road");
+$cadena = #title1.getContenido();
+#title1.insertar();
+#parr17 = CrearParrafo("Mad Max: Fury Road (titulada Mad Max: Furia en la carretera en España y Mad Max: Furia en el camino en Hispanoamérica) es una película australiana dirigida, producida y coescrita por George Miller, y protagonizada por Tom Hardy junto a Charlize Theron.", "justificado");
+#parr17.insertar();
+?>
+				<imagen path="C://imagenes//m1.jpg" alto=628 ancho=1500> </imagen>
+				<boton id="idt1" texto="Me funcionó"></boton>
+				</salto>
+<?hs
+$variable_entera = 5;
+$variable_decimal = 5.5;
+$variable_titulo = "Nuestra Recomendacion";
+$variable_sub_titulo = "Avengers: Infinity War";
+$variable_booleana = true;
+$varEnt1 = 0; 
+$varEnt2 = -3;
+$varEstado = "Correcto!!";
+$varEnt3 = 5.7 + 2;
+
+echo "Probando Enteros: ".$varEnt1." - ".$varEnt2;
+echo $varEstado;
+
+if (5*4.4>1 && 6/5+4>=(2-1)) {
+	echo "Tengo las operaciones relacionales correctas!";
+	if ((5>6 && $varEnt1>$varEnt2) && (5>6 || $varEnt2>$varEnt3)){
+		echo "También mis if";
+	}
+} else {
+	echo "Me tienen que bajar puntos :(";
+}
+
+$var3 = 0.9;
+$var1 = 58;
+$var2 = 2;
+$numVeces = 5;
+repetir (5) {
+    echo "Repitiendo ".$var1; 
+	repetir ($var2) {
+		echo "Repetir anidado ".$var3;
+	}
+}
+
+#title1 = CrearTextoA("ErrorA");
+#parrafo_1 = CrearParrafo("Avengers Infinity War, titulada Vengadores Infinity War en Espana, es una película estadounidense de superhéroes de 2018, basada en el equipo de superhéroes de Marvel Comics los Vengadores, producida por Marvel Studios y distribuida por Walt Disney Studios Motion Pictures. Es la secuela de The Avengers 2012 y Avengers: Age of Ultron 2015, ubicándose como la décimo novena película del Universo cinematográfico de Marvel. ", "centrado");
+
+#parrafo_1.setAlineacion("justificado");
+
+#title1.setContenido($variable_titulo);
+#title1.insertar();
+
+#subtitle1 = CrearTextoB("Error");
+$cad1 = #subtitle1.getContenido();
+#subtitle1.setContenido($variable_sub_titulo);
+#subtitle1.insertar();
+
+#parrafo_1.insertar();
+
+#portada = CrearImagen("C://img.jpg", 1400+42, 8*100+55+(2));
+#portada.setPath("C://imagenes//img5.jpg");
+$var3 = #portada.getAncho();
+#portada.setAlto($var3);
+#portada.setAncho(23.5+56-78*2);
+#portada.insertar();
+
+
+#subtitle_2 = CrearTextoB("Operadores aritméticos y lógicos");
+$contenido_2 = "Probando las operaciones";
+#subsubtitle_3 = CrearParrafo($contenido_2, "centrado");
+#subtitle_2.insertar();
+#subsubtitle_3.insertar();
+
+
+#r1 = CrearImagen("C://imagenes//d1.png", 2*10, 50+100);
+#r2 = CrearImagen("C://imagenes//d2.png", 2*10, 50+100);
+#r1.setAlto(1*100);
+#r1.setAncho(50+50);
+#r2.setAlto(1*100);
+#r2.setAncho(50+50);
+
+$apoyo_incondicional = 45/78.2;
+if($apoyo_incondicional <= 100){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}
+
+$varTrue = true;
+if(!$varTrue){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+if(!$varTrue && true){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+if(!(false || false)|| false){
+	#r2.insertar();
+}else{
+	#r1.insertar();
+}	
+
+if(!($varTrue && false)){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+$varNume1 = 54;
+if(!(5>$varNume1 && false)){
+	#r2.insertar();
+}else{
+	#r1.insertar();
+}	
+
+$varNume2 = 5.89;
+if(!(5>=$varNume2 && 78.78<=7*7)){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+$varNume3 = 905.89;
+if($varNume3 != $varNume3){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+if((!(5!=$varNume2 && 78.78<=7*7))||true){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+
+if(($varNume2 > $varNume3)||!($varNume2 < $varNume3)){
+	#r1.insertar();
+}else{
+	#r2.insertar();
+}	
+
+#subtitle_4 = CrearTextoB("Soy un CRACK!");
+#subtitle_4.insertar();
+
+
+$Wonder = "Wonder Woman";
+$Rob = "Robert Downey Jr";
+$IR  = "Tony Stark / Iron Man";
+$Thor = "Chris Hemsworth";
+$Thorito = "Thor";
+$mark1 = "Mark Ruffalo";
+$mark2 = "Bruce Banner / Hulk" ;
+$cap1 = "Chris Evans";
+$cap2= "Steve Rogers / Capitán América";
+$sca = "Scarlett Johansson";
+$sca1 = "Natasha Romanoff / Viuda Negra";
+
+#tablaDatos = CrearTabla(
+["Interpretes", "Personaje", "Poder"], 
+[$Rob, $IR, 50.56], 
+[$Thor, $Thorito, 98.9], 
+[$mark1, $mark2, 98.9], 
+[$cap1, $cap2, 50.67], 
+[$sca, $sca1, 20.89]
+);
+
+$booleanBorde = false;
+#tablaDatos.setBorde($booleanBorde);
+#tablaDatos.insertar();
+
+$varB_1 = "El";
+#boton1 = CrearBoton("IdBoton1", " ");
+#boton1.setTexto($varB_1);
+#boton2 = CrearBoton("IdBoton2", "Caballo");
+#boton3 = CrearBoton("IdBoton3", "Caballo");
+#boton3.setTexto(#boton2.getTexto());
+
+#boton4 = CrearBoton("IdBoton4", "Se");
+$vart = "llama";
+#boton5 = CrearBoton("IdBoton5", $vart);
+#boton6 = CrearBoton("IdBoton6", "viernes");
+
+#boton1.ClickBoton("Correcto 1");
+#boton3.ClickBoton("Correcto 2");
+$vart1 = "Correcto 3";
+#boton4.ClickBoton($vart1);
+#boton5.ClickBoton("Correcto 4");
+#boton6.ClickBoton("Correcto 5");
+
+#boton1.insertar();
+#boton3.insertar();
+#boton4.insertar();
+#boton5.insertar();
+#boton6.insertar();
+
+?>
+
+				
+			</espacio>
+		</cuerpo>
+
+
+</COMPI>
